@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import oop.entities.tower.TowerFrozen;
+import oop.tiles.Tile;
 
 /**
  *
@@ -33,7 +34,8 @@ public class Player {
     private TowerManager towerManager;
     public boolean StatusLive = true;
     public int typeItem = 0;
-
+    public boolean checkTower = true;
+    
     public Player(Handler handler) {
         this.handler = handler;
         this.menu = new Menu(handler, this);
@@ -65,23 +67,33 @@ public class Player {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.yellow);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g.drawString("Health: " + this.health, 100, 750);
-        g.drawString("Money: " + this.money + "$", 100, 800);
+       
         this.menu.render(g);
 
         if (hand == 1) {
-            if (this.money < 10) {
-                //aler
-            } else {
-                g.drawImage(Assets.selectTower, handler.getMouseManager().getMouseX() - 32, handler.getMouseManager().getMouseY() - 32, 64, 64, null);
+
+                g.drawImage(Assets.selectTower, handler.getMouseManager().getMouseX() - 32, handler.getMouseManager().getMouseY() - 32, 64, 64, null);              
+                
+                //click type tower
                 if(typeItem == 0){
                     g.drawImage(TowerItem.towerBasicItem.getTexture(), handler.getMouseManager().getMouseX() - 25, handler.getMouseManager().getMouseY() - 25, 50, 50, null);
                 }else if(typeItem == 1){
                     g.drawImage(TowerItem.towerFrozenItem.getTexture(), handler.getMouseManager().getMouseX() - 25, handler.getMouseManager().getMouseY() - 25, 50, 50, null);
-                }               
-
+                }                               
+                
+                //check position to set up tower
+                if(handler.getWorld().getTile((handler.getMouseManager().getMouseX()-Tower.TOWERWIDTH/2)/Tile.TILEWIDTH, (handler.getMouseManager().getMouseY()-Tower.TOWERHEIGHT/2)/Tile.TILEHEIGHT).isSolid()
+                 ||handler.getWorld().getTile((handler.getMouseManager().getMouseX()-Tower.TOWERWIDTH/2)/Tile.TILEWIDTH, (handler.getMouseManager().getMouseY()+Tower.TOWERHEIGHT/2)/Tile.TILEHEIGHT).isSolid()
+                 ||handler.getWorld().getTile((handler.getMouseManager().getMouseX()+Tower.TOWERWIDTH/2)/Tile.TILEWIDTH, (handler.getMouseManager().getMouseY()-Tower.TOWERHEIGHT/2)/Tile.TILEHEIGHT).isSolid()
+                 ||handler.getWorld().getTile((handler.getMouseManager().getMouseX()+Tower.TOWERWIDTH/2)/Tile.TILEWIDTH, (handler.getMouseManager().getMouseY()+Tower.TOWERHEIGHT/2)/Tile.TILEHEIGHT).isSolid()){
+                    g.setColor(new Color(255, 0, 0, 100));
+                    g.fillRect(handler.getMouseManager().getMouseX() - 32, handler.getMouseManager().getMouseY() - 32, 66, 66);
+                    checkTower = false;
+                }else{
+                    checkTower = true;
+                }
+                
+                //set up tower
                 if (!clickTower) {
                     if(typeItem == 0){
                         this.handler.getWorld().addTower(new TowerBasic(handler, handler.getMouseManager().getMouseX() - 25, handler.getMouseManager().getMouseY() - 25));
@@ -93,14 +105,20 @@ public class Player {
              
                     hand = 0;
                 }
-            }
 
         }
-
+        
+        g.setColor(Color.yellow);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g.drawString("Health: " + this.health, 100, 750);
+        g.drawString("Money: " + this.money + "$", 100, 800);
     }
 
     public void tick() {
-        handler.getMouseManager().setBuyTower(this);
+        handler.getMouseManager().setBuyTower(handler, this);
+        if(health <= 0){
+            StatusLive = false;
+        }
     }
 
     public int getHealth() {

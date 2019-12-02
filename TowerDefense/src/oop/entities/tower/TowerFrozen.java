@@ -18,8 +18,8 @@ import oop.gfx.Assets;
 public class TowerFrozen extends Tower{
 
     public TowerFrozen(Handler handler, float x, float y) {
-        super(handler, x, y, 20, 4, 1);
-        
+        super(handler, x, y, 20, 100, 1);
+        timeEffect = 200;
         radius.setCenterX(130);
         radius.setCenterY(120);
         radius.setRadius(300);

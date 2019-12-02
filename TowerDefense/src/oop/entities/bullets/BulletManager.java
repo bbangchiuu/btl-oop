@@ -29,6 +29,9 @@ public class BulletManager {
     public void tick(){
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).tick();
+            if(bullets.get(i).statusFinish){
+                bullets.remove(i);
+            }
         }
     }
     

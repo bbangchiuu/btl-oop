@@ -17,18 +17,24 @@ public class UIManager {
 	}
 	
 	public void tick(){
-		for(UIObject o : objects)
-			o.tick();
+		for(UIObject o : objects){
+                    o.tick();
+                }
+			
 	}
 	
 	public void render(Graphics g){
-		for(UIObject o : objects)
-			o.render(g);
+		for(UIObject o : objects){
+                    o.render(g);
+                }
+			
 	}
 	
 	public void onMouseMove(MouseEvent e){
-		for(UIObject o : objects)
-			o.onMouseMove(e);
+		for(UIObject o : objects){
+                    o.onMouseMove(e);
+                }
+			
 	}
 	
 	public void onMouseRelease(MouseEvent e){

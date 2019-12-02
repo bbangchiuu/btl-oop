@@ -5,6 +5,7 @@
  */
 package oop.entities.monster;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,6 @@ import oop.roadmap.RoadMapLv1;
 public class BeetleMonster extends Monster {
 
     private Animation animDown, animUp, animLeft, animRight;
-    protected RoadMap roadMap = new RoadMapLv1(this);
 
     public BeetleMonster(float x, float y, Handler handler, int health, int money) {
         super(x, y, handler, (float) 1, 10, health, money);
@@ -41,14 +41,11 @@ public class BeetleMonster extends Monster {
         animUp.tick();
         animDown.tick();
         animRight.tick();
-        
-        xMove = 0;
-        yMove = 0;
-        roadMap.MonsterMove();
     }
 
     @Override
     public void render(Graphics g) {
+        g.setColor(Color.yellow);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         g.drawString(heath + "", (int) x + 20, (int) y);
         g.drawImage(getCurrentAnimationFrame(), (int) x, (int) y, Monster.width, Monster.height, null);

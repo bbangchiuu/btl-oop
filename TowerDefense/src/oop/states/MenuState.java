@@ -18,13 +18,11 @@ public class MenuState extends State {
 		super(handler);
                 
                 uiManager = new UIManager(handler);
-		handler.getMouseManager().setUIManager(uiManager);//khởi tạo 1 ArrayList UIObject
+		handler.getMouseManager().setUIManager(uiManager);
 
-                //add 1 đối tượng vào trong list UIObject
 		uiManager.addObject(new UIImageButton(550, 420, 128, 64, Assets.btn_start, new ClickListener() {
 			@Override
 			public void onClick() {
-                                System.out.println("da click");
 				handler.getMouseManager().setUIManager(null);
 				State.setState(new GameState(handler));
 			}

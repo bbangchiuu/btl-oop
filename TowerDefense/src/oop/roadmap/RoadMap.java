@@ -13,9 +13,11 @@ import oop.entities.monster.Monster;
  */
 public abstract class RoadMap {
     Monster monster;
-
+    protected boolean stage[] = new boolean[100];
+    
     public RoadMap(Monster monster) {
         this.monster = monster;
+        stage[0] = true;
     }
     
     public abstract void MonsterMove();

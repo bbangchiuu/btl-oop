@@ -25,7 +25,10 @@ public abstract class Monster {
     private int Damege;
     public float speed;
     public float xMove = 0, yMove = 0;
-
+    public int effect = 0;
+    public int timeEffec = 50;
+    protected RoadMap roadMap = new RoadMapLv1(this);
+    
     public Monster(float x, float y, Handler handler, float speed, int Damge,  int heath, int money) {
         this.x = x;
         this.y = y;
@@ -38,16 +41,25 @@ public abstract class Monster {
     
     public abstract void tick();
     public abstract void render(Graphics g);
-    
-    public void MonsterMove(){
-        
-        if(x >= 120){
-            y -= 0.5;
-        }else{
-            x += 0.5;
-        }
-    }
 
+    public void MonsterMove(){
+        if(timeEffec > 0){
+            timeEffec--;
+        } else {
+            effect = 0;
+        }
+        
+        if(effect == 1){
+            speed = (float) 0.5;
+        }else{
+            speed = (float) 1.2;
+        }
+       
+        xMove = 0;
+        yMove = 0;
+        roadMap.MonsterMove();
+    }
+    
     public int getDamege() {
         return Damege;
     }
@@ -60,5 +72,13 @@ public abstract class Monster {
         return money;
     }
     
-    
+    public boolean equals(Monster monster){
+        if(this instanceof BatMonster && monster instanceof BatMonster){
+            return true; 
+        }else if(this instanceof BeetleMonster && monster instanceof BeetleMonster){
+            return true;
+        }
+        
+        return false;
+    }
 }

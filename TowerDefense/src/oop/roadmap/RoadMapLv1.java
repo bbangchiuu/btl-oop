@@ -13,11 +13,8 @@ import oop.entities.monster.Monster;
  */
 public class RoadMapLv1 extends RoadMap {
 
-    protected boolean stage[] = new boolean[100];
-
     public RoadMapLv1(Monster monster) {
         super(monster);
-        stage[0] = true;
     }
 
     @Override
@@ -89,7 +86,7 @@ public class RoadMapLv1 extends RoadMap {
                 monster.yMove = monster.speed;
             }
         } else if (stage[8]) {
-            if (monster.x >= 1100) {
+            if (monster.x >= 1230) {
                 stage[8] = false;
                 monster.StatusFinish = true;
             } else {

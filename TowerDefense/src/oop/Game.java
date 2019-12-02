@@ -44,6 +44,7 @@ public class Game implements Runnable {
 		this.title = title;
 		keyManager = new KeyManager();
                 mouseManager = new MouseManager();
+                //sound_cdjv = new Sound_cdjv("res/sound/Hurricangers.wav");
                 sound_cdjv = new Sound_cdjv("res/sound/Hero_I_quit_long_time.wav");
 	}
 	

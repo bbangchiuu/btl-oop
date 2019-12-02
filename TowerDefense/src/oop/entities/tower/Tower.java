@@ -23,6 +23,7 @@ public abstract class Tower {
     protected Circle radius;
     protected int damege = 1;
     protected int effect = 0;
+    public int timeEffect = 0;
 
     public Tower(Handler handler, float x, float y, int price, int damege, int effect) {
         this.handler = handler;

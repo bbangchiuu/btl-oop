@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
 public class TowerBasic extends Tower {
 
     public TowerBasic(Handler handler, float x, float y) {
-        super(handler, x, y, 10, 2, 0);
+        super(handler, x, y, 10, 50, 0);
         
         radius.setCenterX(130);
         radius.setCenterY(120);
